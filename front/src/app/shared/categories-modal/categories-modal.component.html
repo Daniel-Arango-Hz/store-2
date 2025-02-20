@@ -1,0 +1,79 @@
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-black bg-opacity-50 z-50 modal-overlay"
+     (click)="closeModal()">
+  
+  <!-- Modal Content -->
+  <div class="fixed inset-y-0 left-0 w-80 bg-white shadow-lg z-50 modal-content"
+       (click)="$event.stopPropagation()">
+    
+    <!-- Modal Header -->
+    <div class="p-4 border-b">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-semibold">Filtrar por</h2>
+        <button (click)="closeModal()"
+                class="p-2 hover:bg-gray-100 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]">
+      <!-- Categorías -->
+      <div>
+        <h3 class="text-lg font-medium mb-3">Categorías</h3>
+        <div class="space-y-2">
+          <button *ngFor="let tipo of tipos"
+                  (click)="toggleFilter('tipo', tipo)"
+                  class="w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center gap-2"
+                  [class.bg-green-50]="isSelected('tipo', tipo)"
+                  [class.text-green-600]="isSelected('tipo', tipo)">
+            <span class="flex-1">{{ tipo }}</span>
+            <svg *ngIf="isSelected('tipo', tipo)" 
+                 class="w-5 h-5" 
+                 fill="none" 
+                 stroke="currentColor" 
+                 viewBox="0 0 24 24">
+              <path strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="2" 
+                    d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Colors -->
+      <div>
+        <h3 class="text-lg font-medium mb-3">Color</h3>
+        <div class="grid grid-cols-2 gap-2">
+          <button *ngFor="let color of colores"
+                  (click)="toggleFilter('color', color)"
+                  class="px-3 py-2 rounded-lg transition-colors flex items-center gap-3"
+                  [class.bg-green-50]="isSelected('color', color)"
+                  [class.text-green-600]="isSelected('color', color)">
+            <span class="w-4 h-4 rounded-full border"
+                  [style.backgroundColor]="color.toLowerCase()"></span>
+            {{ color }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
+      <div class="flex gap-3">
+        <button (click)="clearFilters()"
+                class="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+          Limpiar
+        </button>
+        <button (click)="applyFilters()"
+                class="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+          Aplicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

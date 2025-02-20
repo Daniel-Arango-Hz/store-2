@@ -1,0 +1,116 @@
+<app-nav></app-nav>
+
+<div class="container mx-auto px-4 py-8">
+  <!-- Loading state -->
+  <div *ngIf="loading" class="flex justify-center items-center min-h-[400px]">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-400"></div>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="text-center text-red-500 py-8">
+    {{ error }}
+  </div>
+
+  <!-- Product detail -->
+  <div *ngIf="producto && !loading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+     <!-- Left column - Images -->
+     <div class="flex gap-4">
+      <!-- Thumbnail gallery (Vertical) -->
+      <div class="flex flex-col gap-2">
+        <button *ngFor="let imagen of producto.imagenes"
+                (click)="changeImage(imagen.ruta_imagen)"
+                class="w-20 h-20 rounded-lg overflow-hidden bg-white p-2 hover:bg-gray-100 transition-colors"
+                [class.selected-thumbnail]="selectedImage === 'https://back-store-v1.onrender.com' + imagen.ruta_imagen">
+          <img [src]="'https://back-store-v1.onrender.com' + imagen.ruta_imagen" 
+               [alt]="producto.nombre_producto"
+               class="w-full h-full object-cover">
+        </button>
+      </div>
+
+      <!-- Main image -->
+      <div class="flex-1 aspect-square rounded-lg overflow-hidden bg-white">
+        <img [src]="selectedImage" 
+             [alt]="producto.nombre_producto"
+             class="w-full h-full object-contain">
+      </div>
+    </div>
+
+    <!-- Right column - Product info -->
+    <div class="space-y-6">
+      <h1 class="text-3xl font-bold text-gray-900">{{ producto.nombre_producto }}</h1>
+
+      <!-- Price -->
+      <div class="space-y-1">
+        <div class="text-gray-500 line-through">
+          {{ formatPrice(producto.precio) }}
+        </div>
+        <div class="text-3xl font-bold text-green-500">
+          {{ formatPrice(calculateDiscountPrice(producto.precio)) }}
+        </div>
+      </div>
+
+      <!-- Color -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700">Color: {{ producto.color }}</label>
+        <div class="w-10 h-10 rounded-full border"
+             [style.backgroundColor]="producto.color"></div>
+      </div>
+
+      <!-- Tamaño -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700">Tamaño:</label>
+        <select class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          <option>Seleccionar tamaño</option>
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700">Cantidad:</label>
+        <select [(ngModel)]="cantidad" 
+                class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          <option [value]="i" *ngFor="let i of [1,2,3,4,5]">{{ i }}</option>
+        </select>
+      </div>
+
+      <!-- Descripción -->
+      <div class="space-y-2">
+        <h3 class="text-lg font-medium text-gray-900">Descripción:</h3>
+        <p class="text-gray-700">{{ producto.descripcion_producto }}</p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="space-y-3">
+        <button (click)="buyNow()"
+                class="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          Comprar ahora
+        </button>
+        <button (click)="addToCart()"
+                class="w-full bg-yellow-400 text-white py-3 px-4 rounded-lg hover:bg-yellow-500 transition-colors">
+          Agregar al carrito
+        </button>
+      </div>
+
+      <!-- Rating -->
+      <div class="space-y-2">
+        <h3 class="text-lg font-medium text-gray-900">Valoración del producto</h3>
+        <div class="flex gap-1">
+          <svg *ngFor="let i of [1,2,3,4,5]"
+               [class.text-yellow-400]="i <= rating"
+               [class.text-gray-300]="i > rating"
+               class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

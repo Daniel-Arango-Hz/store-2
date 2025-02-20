@@ -1,0 +1,53 @@
+<div class="flex h-screen">
+  <div class="hidden lg:block lg:w-1/2 bg-cover bg-center" style="background-image: url('/images/imagen-login.jpeg')"></div>
+  <div class="w-full lg:w-1/2 flex items-center justify-center bg-white p-8">
+    <div class="max-w-md w-full">
+      <h1 class="text-3xl font-bold text-center mb-8">Iniciar sesión</h1>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            ✉️
+          </span>
+          <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Correo"
+            class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            🔒
+          </span>
+          <input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Contraseña"
+            class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          >
+        </div>
+
+        <div class="text-center">
+          <a routerLink="/register" class="text-sm text-gray-600 hover:underline">¿Aún no tienes cuenta? Crear Cuenta</a>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300"
+        >
+          Iniciar
+        </button>
+
+        <div *ngIf="errorMessage" class="text-red-500 text-center">
+          {{ errorMessage }}
+        </div>
+      </form>
+
+      <div class="text-center text-gray-500 text-xs mt-8">
+        ©copyright 2023 - Store
+      </div>
+    </div>
+  </div>
+</div>

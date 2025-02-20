@@ -1,0 +1,100 @@
+<div class="flex h-screen">
+    <div class="hidden lg:block lg:w-1/2 bg-cover bg-center" 
+         style="background-image: url('/images/imagen-login.jpeg')">
+    </div>
+    
+    <div class="w-full lg:w-1/2 flex items-center justify-center bg-white p-8">
+      <div class="max-w-md w-full">
+        <h1 class="text-3xl font-bold text-center mb-8">Registrate</h1>
+        
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <!-- Nombre -->
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              👤
+            </span>
+            <input 
+              type="text" 
+              formControlName="nombre" 
+              placeholder="Nombre"
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+  
+          <!-- Apellidos -->
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              👤
+            </span>
+            <input 
+              type="text" 
+              formControlName="apellidos" 
+              placeholder="Apellidos"
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+  
+          <!-- Correo -->
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              ✉️
+            </span>
+            <input 
+              type="email" 
+              formControlName="correo" 
+              placeholder="Correo"
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+  
+          <!-- Contraseña -->
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              🔒
+            </span>
+            <input 
+              type="password" 
+              formControlName="password" 
+              placeholder="Contraseña"
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+  
+          <!-- Teléfono -->
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              📞
+            </span>
+            <input 
+              type="tel" 
+              formControlName="telefono" 
+              placeholder="Número de teléfono"
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+          </div>
+  
+          <!-- Botones -->
+          <div class="space-y-3">
+            <button 
+              type="submit" 
+              class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300"
+            >
+              Registrarse
+            </button>
+  
+            <button 
+              type="button"
+              routerLink="/login"
+              class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition duration-300"
+            >
+              Volver al login
+            </button>
+          </div>
+        </form>
+  
+        <div class="text-center text-gray-500 text-xs mt-8">
+          ©copyright 2023 - Store
+        </div>
+      </div>
+    </div>
+  </div>
