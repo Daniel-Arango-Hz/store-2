@@ -27,6 +27,7 @@ export class NavComponent implements OnInit {
   
   isMobileMenuOpen = false;
   isAuthenticated = false;
+  isAdmin = false;
   showCategoriesModal = false;
   cartItemsCount = 0;
 
@@ -38,7 +39,10 @@ export class NavComponent implements OnInit {
     private cartService: CartService
   ) {
     this.authService.isAuthenticated$.subscribe(
-      isAuthenticated => this.isAuthenticated = isAuthenticated
+      isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+        this.isAdmin = this.authService.isAdmin();
+      }
     );
     this.cartService.cartItems$.subscribe(() => {
       this.cartItemsCount = this.cartService.getCartItemsCount();

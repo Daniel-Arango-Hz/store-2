@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
 
   loadProducts() {
     this.loading = true;
-    this.http.get<ApiResponse>('https://back-store-v1.onrender.com/api/productos')
+    this.http.get<ApiResponse>('http://localhost:3060/api/productos')
       .subscribe({
         next: (response) => {
           this.allProductos = response.productos;

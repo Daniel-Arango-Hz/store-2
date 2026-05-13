@@ -17,7 +17,7 @@ import { AuthService } from '../auth/auth.service';
         El carrito está vacío.
       </div>
       <div *ngFor="let item of cartItems" class="flex items-center border-b border-gray-200 py-4">
-        <img [src]="'https://back-store-v1.onrender.com' + item.imagenUrl" [alt]="item.nombre_producto" class="w-20 h-20 object-cover mr-4">
+        <img [src]="'http://localhost:3060' + item.imagenUrl" [alt]="item.nombre_producto" class="w-20 h-20 object-cover mr-4">
         <div class="flex-grow">
           <h2 class="text-lg font-semibold">{{ item.nombre_producto }}</h2>
           <p class="text-gray-600">Precio: {{ item.precio | currency:'COP':'symbol-narrow':'1.0-0' }}</p>

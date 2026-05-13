@@ -59,13 +59,13 @@ export class ProductDetailComponent implements OnInit {
 
   loadProduct(id: string) {
     this.loading = true;
-    this.http.get<{ productos: Producto[] }>(`https://back-store-v1.onrender.com/api/productos`)
+    this.http.get<{ productos: Producto[] }>(`http://localhost:3060/api/productos`)
       .subscribe({
         next: (response) => {
           const producto = response.productos.find(p => p.id === Number(id));
           if (producto) {
             this.producto = producto;
-            this.selectedImage = 'https://back-store-v1.onrender.com' + producto.imagenes[0].ruta_imagen;
+            this.selectedImage = 'http://localhost:3060' + producto.imagenes[0].ruta_imagen;
           } else {
             this.error = 'Producto no encontrado';
           }
@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   changeImage(imagePath: string) {
-    this.selectedImage = 'https://back-store-v1.onrender.com' + imagePath;
+    this.selectedImage = 'http://localhost:3060' + imagePath;
   }
 
   formatPrice(price: number): string {

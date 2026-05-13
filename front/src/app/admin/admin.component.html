@@ -1,0 +1,115 @@
+<app-nav></app-nav>
+
+<section class="admin-shell">
+  <div class="admin-header">
+    <div>
+      <p class="eyebrow">Administracion de tienda</p>
+      <h1>Panel Admin</h1>
+      <p class="subtitle">Monitorea inventario, descuentos y estado de catalogo en tiempo real.</p>
+    </div>
+    <button class="btn-refresh" (click)="loadProducts()">Actualizar datos</button>
+  </div>
+
+  <div *ngIf="loading" class="state-box">Cargando panel...</div>
+  <div *ngIf="error" class="state-box error">{{ error }}</div>
+
+  <ng-container *ngIf="!loading && !error">
+    <div class="kpi-grid">
+      <article class="kpi-card">
+        <p>Productos</p>
+        <h3>{{ totalProductos }}</h3>
+      </article>
+      <article class="kpi-card">
+        <p>Stock total</p>
+        <h3>{{ stockTotal }}</h3>
+      </article>
+      <article class="kpi-card">
+        <p>Con descuento</p>
+        <h3>{{ productosConDescuento }}</h3>
+      </article>
+      <article class="kpi-card danger">
+        <p>Sin stock</p>
+        <h3>{{ productosSinStock.length }}</h3>
+      </article>
+    </div>
+
+    <div class="content-grid">
+      <article class="panel-card">
+        <div class="card-title-row">
+          <h2>Alertas de inventario</h2>
+          <span class="pill warn">{{ productosStockBajo.length }} criticos</span>
+        </div>
+
+        <p *ngIf="productosStockBajo.length === 0" class="empty">No hay productos con stock bajo.</p>
+
+        <ul *ngIf="productosStockBajo.length > 0" class="alerts-list">
+          <li *ngFor="let producto of productosStockBajo">
+            <div>
+              <strong>{{ producto.nombre_producto }}</strong>
+              <p>{{ producto.tipo }} · {{ formatPrice(producto.precio) }}</p>
+            </div>
+            <span class="stock">{{ producto.stock_disponible }} und</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="panel-card">
+        <div class="card-title-row">
+          <h2>Productos sin stock</h2>
+          <span class="pill danger">{{ productosSinStock.length }} agotados</span>
+        </div>
+
+        <p *ngIf="productosSinStock.length === 0" class="empty">Todo el catalogo tiene disponibilidad.</p>
+
+        <ul *ngIf="productosSinStock.length > 0" class="alerts-list">
+          <li *ngFor="let producto of productosSinStock">
+            <div>
+              <strong>{{ producto.nombre_producto }}</strong>
+              <p>{{ producto.tipo }}</p>
+            </div>
+            <span class="stock zero">0 und</span>
+          </li>
+        </ul>
+      </article>
+    </div>
+
+    <article class="panel-card table-wrapper">
+      <div class="card-title-row">
+        <h2>Catalogo completo</h2>
+        <span class="pill neutral">{{ productos.length }} registros</span>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Tipo</th>
+              <th>Precio</th>
+              <th>Descuento</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productos">
+              <td>
+                <div class="product-cell">
+                  <img [src]="getImageUrl(producto)" [alt]="producto.nombre_producto">
+                  <span>{{ producto.nombre_producto }}</span>
+                </div>
+              </td>
+              <td>{{ producto.tipo }}</td>
+              <td>{{ formatPrice(producto.precio) }}</td>
+              <td>{{ producto.descuento }}%</td>
+              <td>
+                <span [class]="producto.stock_disponible === 0 ? 'stock zero' : (producto.stock_disponible <= 5 ? 'stock low' : 'stock ok')">
+                  {{ producto.stock_disponible }} und
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </ng-container>
+</section>

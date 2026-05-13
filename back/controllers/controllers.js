@@ -54,11 +54,19 @@ const login = async (req, res) => {
         const validPassword = await bcrypt.compare(password, users.password);
         if (!validPassword) return res.status(400).json({ error: "Contraseña incorrecta" });
 
-        const token = jwt.sign({ id: users.id, email: users.email }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: users.id, email: users.email, role: users.role }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });
 
-        res.json({ message: "Inicio de sesión exitoso", token });
+        res.json({
+            message: "Inicio de sesión exitoso",
+            token,
+            user: {
+                id: users.id,
+                email: users.email,
+                role: users.role
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

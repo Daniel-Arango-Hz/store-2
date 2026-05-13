@@ -115,6 +115,7 @@
         </ng-container>
         <ng-container *ngIf="isAuthenticated">
           <a href="#" class="text-black hover:text-gray-700">Mis compras</a>
+          <a *ngIf="isAdmin" routerLink="/admin" class="text-black hover:text-gray-700">Panel admin</a>
           <button (click)="logout()" class="text-black hover:text-gray-700">Cerrar sesión</button>
         </ng-container>
       </div>
@@ -145,6 +146,7 @@
         </ng-container>
         <ng-container *ngIf="isAuthenticated">
           <a href="#" class="text-lg">Mis compras</a>
+          <a *ngIf="isAdmin" routerLink="/admin" class="text-lg">Panel admin</a>
           <button (click)="logout()" class="text-lg text-left">Cerrar sesión</button>
         </ng-container>
         <div class="border-t border-gray-200 my-4"></div>

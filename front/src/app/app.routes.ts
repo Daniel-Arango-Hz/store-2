@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ServerRoute, RenderMode } from '@angular/ssr';
+import { adminGuard } from './auth/admin.guard';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,11 @@ export const routes: Routes = [
   {
     path: 'checkout',
     loadComponent: () => import('./checkout/checkout.component').then(m => m.CheckoutComponent)
+  },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () => import('./admin/admin.component').then(m => m.AdminComponent)
   },
   {
     path: '**',
