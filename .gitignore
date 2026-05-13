@@ -1,0 +1,9 @@
+# Environment variables
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Keep examples versioned
+!.env.example
+!.env.*.example
